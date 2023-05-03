@@ -68,6 +68,7 @@ export default function App() {
   undefined
   );
 
+
   // this is the function that runs whenever the component updates (e.g. render, refresh)
   useEffect(() => {
 	  const provider = getProvider();
@@ -75,6 +76,9 @@ export default function App() {
 		// if the phantom provider exists, set this as the provider
 	  if (provider) setProvider(provider);
 	  else setProvider(undefined);
+
+    console.log(provider)
+    console.log(walletKey);
   }, []);
 
   /**
@@ -99,6 +103,20 @@ export default function App() {
     }
   };
 
+
+  const disconnectWallet= async()=>{    
+    try{
+      if(provider){
+        provider.disconnect();
+        setWalletKey(undefined);
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+
+  }
+
 	// HTML code for the app
   return (
     <div className="App">
@@ -117,7 +135,28 @@ export default function App() {
         Connect Wallet
       </button>
         )}
-        {provider && walletKey && <p>Connected account</p> }
+        {provider && walletKey && 
+          <div>
+            <p>Connected account</p> 
+            <h5>{`Address is ${walletKey}`}</h5>
+            <button
+            style={{
+              position: "absolute", 
+              top: "10px",
+              right: "10px", 
+              transform: "translate(-50%, 0%)",
+              fontSize: "16px",
+              padding: "15px",
+              fontWeight: "bold",
+              borderRadius: "5px",
+            }}
+            onClick={disconnectWallet}
+
+            >
+              Disconnect Wallet
+            </button>
+          </div>
+        }
 
         {!provider && (
           <p>
