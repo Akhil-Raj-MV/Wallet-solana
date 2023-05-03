@@ -40,6 +40,10 @@ interface PhantomProvider {
   request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
 }
 
+
+
+
+
  /**
  * @description gets Phantom provider, if it exists
  */
@@ -50,6 +54,8 @@ interface PhantomProvider {
     if (provider.isPhantom) return provider as PhantomProvider;
   }
 };
+
+
 
 export default function App() {
   // create state variable for the provider
